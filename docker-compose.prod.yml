@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: getjwt_api_prod
     ports:
-      - "8000:8000"
+      - "5670:8000"
     # In production, we do NOT mount the codebase as a volume but rather use the code backed into the container image.
     # However, you might want to mount your sensitive private keys securely as read-only rather than building them into the image.
     # Uncomment the lines below if you prefer to mount your keys dynamically:
