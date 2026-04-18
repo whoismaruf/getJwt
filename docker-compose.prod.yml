@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: getjwt_api_prod
+    ports:
+      - "8000:8000"
+    # In production, we do NOT mount the codebase as a volume but rather use the code backed into the container image.
+    # However, you might want to mount your sensitive private keys securely as read-only rather than building them into the image.
+    # Uncomment the lines below if you prefer to mount your keys dynamically:
+    # volumes:
+    #   - ./getJwt:/app/getJwt:ro
+    #   - ./getJwt.pub:/app/getJwt.pub:ro
+    environment:
+      - ENVIRONMENT=production
+    restart: always
+    # Run uvicorn with multiple workers for production traffic (and without --reload)
+    # The recommended number of workers is typically (2 * CPU_CORES) + 1
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+

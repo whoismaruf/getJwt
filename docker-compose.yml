@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: getjwt_api
+    ports:
+      - "8000:8000"
+    volumes:
+      # Sync current directory to /app for live reload
+      - .:/app
+    environment:
+      - ENVIRONMENT=development
+    restart: unless-stopped
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
