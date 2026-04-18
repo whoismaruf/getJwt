@@ -16,9 +16,11 @@ A lightweight, robust microservice built with FastAPI to manually generate and v
 
 ## Setup Instructions
 
-### 1. Generating Your Keys 
+### 1. Key Generation (Automatic in Docker)
 
-This application relies on an Ed25519 SSH keypair (`getJwt` and `getJwt.pub`) located in the root directory. If you haven't generated them yet, you can do so by running:
+**If using Docker:** You are securely set! The `Dockerfile` automatically generates a fresh, container-scoped `getJwt` Ed25519 keypair safely inside the container during the build process, isolating it from your local system.
+
+**If running locally (without Docker):** This application expects an Ed25519 SSH keypair (`getJwt` and `getJwt.pub`) located in the root directory. You can generate them by running:
 
 ```bash
 ssh-keygen -t ed25519 -f ./getJwt -N "" -q
