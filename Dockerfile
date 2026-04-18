@@ -10,6 +10,10 @@ COPY ./requirements.txt /tmp/requirements.txt
 # Install dependencies (this installs them into the image)
 RUN pip install --no-cache-dir --prefix=/install -r /tmp/requirements.txt
 
+# Generate the Ed25519 JWT keys purely for this docker build
+RUN apt-get update && apt-get install -y openssh-client && \
+    ssh-keygen -t ed25519 -C "getJwt" -f /tmp/getJwt -N "" -q
+
 # --- Final Stage ---
 FROM python:3.12-slim
 
@@ -26,9 +30,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # Copy minimal installed packages from the builder stage
 COPY --from=requirements-stage /install /usr/local
 
-# Explicitly copy your private and public keys first
-COPY --chown=appuser:appuser getJwt getJwt
-COPY --chown=appuser:appuser getJwt.pub getJwt.pub
+# Explicitly copy your private and public keys generated in the builder stage
+COPY --from=requirements-stage --chown=appuser:appuser /tmp/getJwt getJwt
+COPY --from=requirements-stage --chown=appuser:appuser /tmp/getJwt.pub getJwt.pub
 RUN chmod 600 getJwt
 
 # Copy the rest of the application files
