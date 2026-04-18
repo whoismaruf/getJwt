@@ -68,7 +68,7 @@ def read_root():
     return {"status": "FastAPI JWT Generator is running"}
 
 
-@app.get("/jwks")
+@app.get("/api/auth/jwks")
 async def jwks_endpoint():
     try:
         return get_jwk()
