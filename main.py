@@ -8,7 +8,11 @@ import jwt
 import datetime
 import os
 
-app = FastAPI()
+app = FastAPI(
+    title="JWT Generator & Verifier Microservice",
+    description="A robust API to securely generate and verify JSON Web Tokens (JWT) using EdDSA (Ed25519) cryptographic signatures.",
+    version="1.0.0",
+)
 
 # Path to your private key file
 PRIVATE_KEY_PATH = "getJwt"
