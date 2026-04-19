@@ -54,7 +54,7 @@ def create_jwt_token(payload: dict, expires_in_hours: int) -> str:
         {
             "exp": now + datetime.timedelta(hours=expires_in_hours),
             "iat": now,
-            "iss": "fastapi-jwt-provider",
+            "iss": settings.APP_URL,
         }
     )
 
@@ -76,6 +76,6 @@ def verify_jwt_token(token: str, x: str) -> dict:
         token,
         public_key_obj,
         algorithms=["EdDSA"],
-        issuer="fastapi-jwt-provider",
+        issuer=settings.APP_URL,
     )
     return decoded_payload

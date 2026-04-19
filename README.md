@@ -47,7 +47,11 @@ docker compose -f docker-compose.prod.yml up --build -d
    - Windows: `.venv\Scripts\activate`
    - Linux/Mac: `source .venv/bin/activate`
 3. Install dependencies: `pip install -r requirements.txt`
-4. Run the development server: `uvicorn app.main:app --reload`
+4. Set up environment variables by creating a `.env` file in the root directory:
+   ```env
+   APP_URL=http://localhost:8000
+   ```
+5. Run the development server: `uvicorn app.main:app --reload`
 
 ## Project Structure
 
